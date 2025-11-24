@@ -22,7 +22,7 @@ tr_df = pd.read_csv(tr_fp)
 val_df = pd.read_csv(val_fp)
 te_df = pd.read_csv(te_fp)
 
-# Apply sampling if specified
+# Apply sampling 
 if SAMPLE_SIZE is not None:
     tr_df = tr_df.sample(n=min(SAMPLE_SIZE, len(tr_df)), random_state=42)
     val_df = val_df.sample(n=min(int(SAMPLE_SIZE*0.1), len(val_df)), random_state=42)
@@ -194,7 +194,6 @@ for ep in range(epochs):
             'probe_bias': mdl.probe.bias.data.cpu().numpy()
         }, 'models/toxic_probe_best.pt')
 
-    # classification report on last epoch
     if ep == epochs - 1:
         print(classification_report(val_lbls, val_preds, target_names=['Non-Toxic','Toxic']))
 
